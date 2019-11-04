@@ -38,7 +38,7 @@ router.post("/", (req, res) => {
   // remember to validate the data sent by the client
   knex
     .insert(req.body, "id") // ignore the console warning on SQLite
-    .into("posts")
+    .into("accounts")
     .then(ids => {
       res.status(201).json(ids);
     })
@@ -52,7 +52,7 @@ router.put("/:id", (req, res) => {
 
   // validate the data before calling the database
 
-  knex("posts")
+  knex("accounts")
     .where({ id: req.params.id })
     .update(changes)
     .then(count => {
@@ -69,7 +69,7 @@ router.delete("/:id", (req, res) => {
 
   // validate the data before calling the database
 
-  knex("posts")
+  knex("accounts")
     .where({ id: req.params.id })
     .del()
     .then(count => {
@@ -77,7 +77,7 @@ router.delete("/:id", (req, res) => {
       res.status(200).json(count);
     })
     .catch(error => {
-      res.status(500).json({ error: "Failed to delte post" });
+      res.status(500).json({ error: "Failed to delete post" });
     });
 });
 
